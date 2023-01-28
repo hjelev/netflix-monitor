@@ -15,19 +15,19 @@ def get_url():
         return None
 
     if any(ext in url for ext in c.sites_to_check):
-        url = True
+        watching = True
     else:
-        url = False
+        watching = False
 
-    return(url)
+    return(watching)
 
 
-def send_message(url):
+def send_message(watching):
     try:
         client = paho.Client()
         client.username_pw_set(c.mqtt_user, c.mqtt_password)
         client.connect(c.mqtt_host, int(c.mqtt_port))
-        client.publish(c.mqtt_topic_prefix + "/url", url, qos=1)
+        client.publish(c.mqtt_topic_prefix + "/netflix", watching, qos=1)
         client.disconnect()
     except:
         print("Coudln't sent MQTT message!")
@@ -35,6 +35,6 @@ def send_message(url):
 
 if __name__ == '__main__':
     while True:
-        url = get_url()
-        send_message(url)
-        time.sleep(10)
+        watching = get_url()
+        send_message(watching)
+        time.sleep(c.sleep)

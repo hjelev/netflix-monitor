@@ -7,3 +7,4 @@ mqtt_topic_prefix = "netflix_monior"
 
 browser = "Chrome"
 sites_to_check = [ 'https://www.netflix.com/' , 'https://www.hbomax.com/']
+sleep = 10
